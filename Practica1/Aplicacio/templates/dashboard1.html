@@ -1,9 +1,10 @@
 {% extends "root.html" %}
 {% block contingut %}
     <h1>Pelicules de {{ username }} </h1>
+    <h2>Numero de pelicules = {{ longitud }} </h2>
     {% if pelicules %}
         <ul>{% for pelicula in pelicules %}
-            <li>{{ pelicula.id }} - {{pelicula.nom}} - {{pelicula.data}}</li>
+            <li>{{ pelicula.id }} - {{pelicula.nom}} - {{pelicula.data}} - {{pelicula.durada}}</li>
         {% endfor %}
         </ul>
     {% else %}

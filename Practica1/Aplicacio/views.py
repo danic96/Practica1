@@ -16,14 +16,17 @@ def pelicules(request):
     # Utilitzarem una planteilla prefixada per construir la pagina
     template = get_template("dashboard1.html")
     # template = get_template("dashboard2.html")
-    pelicula = Pelicula.objects.get(id=2241)
+    # pelicula = Pelicula.objects.get(id=2241)
     pelicules = Pelicula.objects.all()
+    
+    longitud = len(pelicules)
     
     variables = Context({
         "username": "Dani",
         "author": "Luis Barcenas",
         # "pelicula": pelicula
-        "pelicules": pelicules
+        "pelicules": pelicules,
+        "longitud": longitud
     })
     page = template.render(variables)
     return HttpResponse(page)
