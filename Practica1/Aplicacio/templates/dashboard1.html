@@ -1,0 +1,12 @@
+{% extends "root.html" %}
+{% block contingut %}
+    <h1>Pelicules de {{ username }} </h1>
+    {% if pelicules %}
+        <ul>{% for pelicula in pelicules %}
+            <li>{{ pelicula.id }} - {{pelicula.nom}} - {{pelicula.data}}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h2> No hi ha res per tu, penjat</h2>
+    {% endif %}
+{% endblock %}
