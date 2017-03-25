@@ -17,6 +17,6 @@ from django.contrib import admin
 from Aplicacio.views import foo
 
 urlpatterns = [
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'Aplicacio/$', foo),
 ]
