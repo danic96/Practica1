@@ -14,7 +14,7 @@ def foo(request):
     
 def pelicules(request):
     # Utilitzarem una planteilla prefixada per construir la pagina
-    template = get_template("dashboard1.html")
+    template = get_template("dashboard3.html")
     # template = get_template("dashboard2.html")
     # pelicula = Pelicula.objects.get(id=2241)
     pelicules = Pelicula.objects.all()

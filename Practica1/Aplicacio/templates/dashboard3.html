@@ -1,0 +1,27 @@
+{% extends "root.html" %}
+{% block contingut %}
+    <h1>Pelicules de {{ username }} </h1>
+    <h2>Numero de pelicules = {{ longitud }} </h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>DATA</th>
+            <th>DURADA</th>
+        </tr>
+    {% if pelicules %}
+        
+        {% for pelicula in pelicules %}
+        <tr>
+            <td>{{ pelicula.id }}</td>
+            <td>{{pelicula.nom}}</td>
+            <td>{{pelicula.data}}</td>
+            <td>{{pelicula.durada}}</td>
+        </tr>
+        {% endfor %}
+        
+    {% else %}
+        <h2> No hi ha res per tu, penjat</h2>
+    {% endif %}
+    </table>
+{% endblock %}
