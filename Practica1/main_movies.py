@@ -82,18 +82,17 @@ class MoviesClient(object):
             for result in results:
                 try:
                     str(result["runtime"])
+                    if result["release_date"] is None:
+                        print "Release_date es None"
+                        print result["id"]
+                        result["release_date"] = "null"
                     pelicula = Pelicula(id=result["id"],
                                         nom=result["name"].encode("utf-8"),
                                         productors='null',
                                         data=result["release_date"].encode("utf-8"),
                                         durada=result["runtime"])
-                    if result["release_date"] is None:
-                        print "Release_date es None"
-                        print result["id"]
-                        result["release_date"] = "null"
                     pelicula.save()
                 except:
-
                     if result["release_date"] is None:
                         print "Release_date es None"
                         print result["id"]
@@ -105,6 +104,7 @@ class MoviesClient(object):
                                         data=result["release_date"].encode("utf-8"),
                                         durada=0)
                     pelicula.save()
+
             if self.offset >= limit:
                 final = True
             else:
