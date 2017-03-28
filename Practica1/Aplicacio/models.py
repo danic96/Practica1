@@ -8,6 +8,7 @@ class Pelicula(models.Model):
     productors = models.TextField(max_length=100)
     data = models.TextField(max_length=50)
     durada = models.TextField(null=True, blank=True)
+    detail_url = models.TextField(max_length=100)
 
     def __unicode__(self):
         return self.nom

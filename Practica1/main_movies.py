@@ -7,7 +7,7 @@ import json
 import requests
 from time import sleep
 
-from Aplicacio.models import Pelicula
+from Aplicacio.models import Pelicula, Personatge
 
 api_key = None
 time = 0
@@ -18,7 +18,7 @@ class MoviesClient(object):
 
     url_base = "http://comicvine.gamespot.com/api/characters/?api_key="
     sufix = ("&format=json" +
-             "&field_list=id,name,release_date,runtime,studios&offset=")
+             "&field_list=id,name,release_date,runtime,api_detail_url&offset=")
 
     def __init__(self, api_key):
         """Inicialitzar la clau."""
@@ -41,8 +41,12 @@ class MoviesClient(object):
         while not correcte:
             user_agent = {'User-agent': 'Mozilla/5.0'}
             if situation != "character" and situation != "movie":
+
                 url = base_urls[situation] + self.api_key + self.sufix + \
-                    + str(self.offset)
+                     str(self.offset)
+                     
+            elif situation == "character":
+                url = url + "?api_key=" + self.api_key + "&format=json" + "&field_list=id,name,gender,description"
             else:
                 url = url + "?api_key=" + self.api_key + "&format=json"
 
@@ -55,6 +59,7 @@ class MoviesClient(object):
                 sleep(time)
             elif codi == 504:
                 print "GATEWAY TIME-OUT"
+                print url
                 return None
             elif codi == 401:
                 print "PROBLEMA DE AUTENTIFICACIO"
@@ -90,7 +95,8 @@ class MoviesClient(object):
                                         nom=result["name"].encode("utf-8"),
                                         productors='null',
                                         data=result["release_date"].encode("utf-8"),
-                                        durada=result["runtime"])
+                                        durada=result["runtime"],
+                                        detail_url=result["api_detail_url"])
                     pelicula.save()
                 except:
                     if result["release_date"] is None:
@@ -112,15 +118,41 @@ class MoviesClient(object):
                 self.offset += 100
 
         return resultat
-
-
+    
+    def characters(self):
+        lista = Pelicula.objects.values('detail_url')
+        for elemento in lista:
+            print elemento["detail_url"]
+            data = self.requestData("movie", elemento["detail_url"])
+            jsondata = json.loads(data)
+            
+            print jsondata["results"]["name"].encode('utf-8')
+            # print jsondata["results"]["characters"][0].keys()
+            i=1
+            for character in jsondata["results"]["characters"]:
+                # print "   " + character["name"].encode('utf-8')
+                character_data = self.requestData("character", character["api_detail_url"])
+                character_jsondata = json.loads(character_data)
+                # print character_jsondata["results"]["id"]
+                result = character_jsondata["results"]
+                if result["description"] is None:
+                    character = Personatge(id=result["id"],
+                                            nom=result["name"].encode("utf-8"),
+                                            genere=result["gender"],
+                                            descripcio="null")
+                else:
+                    character = Personatge(id=result["id"],
+                                            nom=result["name"].encode("utf-8"),
+                                            genere=result["gender"],
+                                            descripcio=result["description"].encode("utf-8"))
+                character.save()
+                print "   " + str(i) + "-ESCRITO"
+                i+=1
+                
 def menu_inicial(api_key):
-    if not api_key:
-        try:
-            api_key = sys.argv[1]
-        except IndexError:
-            key_file = open('api_key', 'r')
-            api_key = key_file.read().replace('\n', '')
+    
+    key_file = open('api_key', 'r')
+    api_key = key_file.read().replace('\n', '')
 
     mc = MoviesClient(api_key)
     print api_key
