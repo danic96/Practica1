@@ -84,7 +84,7 @@ class MoviesClient(object):
             results = jsondata["results"]
             for result in results:
                 try:
-                    conversion = int(result["runtime"])
+                    conversion = str(result["runtime"])
                     pelicula = Pelicula(id=result["id"], nom=result["name"].encode("utf-8"),productors='null', data=result["release_date"].encode("utf-8"), durada=result["runtime"])
                     # pelicula = Pelicula(id=1, nom='prueba',productors='null' data='hola', durada=10)
                     if result["release_date"] is None:
@@ -137,82 +137,6 @@ class MoviesClient(object):
 
         return resultat
 
-    def publishers(self):
-        u"""Baixar-se la informació de hourly."""
-        final = False
-        while not final:
-            print self.offset
-            data = self.requestData("publishers", "")
-
-            jsondata = json.loads(data)
-            limit = jsondata["number_of_total_results"]
-
-            resultat = []
-            results = jsondata["results"]
-            for result in results:
-                if result["name"] is not None:
-                    print "   " + result["name"].encode("utf-8")
-                    """
-                    for studio in result["studios"]:
-                        print "     " + str(studio["name"])
-                        sleep(time)
-
-                    new_url = result["api_detail_url"]
-                    data2 = self.requestData("movie", new_url)
-
-                    if data2 is not None:
-                        jsondata2 = json.loads(data2)
-                        characters = jsondata2["results"]["characters"]
-                        if characters is not None:
-                            for character in characters:
-                                print "       " + character["name"].encode("utf-8") + " - " + str(character["id"])
-
-                            print self.offset
-                        """
-            if self.offset >= limit:
-                final = True
-            else:
-                sleep(time)
-                self.offset += 100
-
-        return resultat
-
-    def characters(self):
-        u"""Baixar-se la informació de hourly."""
-        final = False
-        while not final:
-            print self.offset
-            print "DEMANAT"
-            data = self.requestData("characters", "")
-            print "  REBUT"
-
-            jsondata = json.loads(data)
-            limit = jsondata["number_of_total_results"]
-
-            resultat = []
-            results = jsondata["results"]
-            for result in results:
-                print "   " + result["name"]
-                print "   " + str(result["id"])
-
-                new_url = result["api_detail_url"]
-
-                data2 = self.requestData("character", new_url)
-
-                if data2 is not None:
-                    jsondata2 = json.loads(data2)
-                    movies = jsondata2["results"]["movies"]
-                    if movies is not None:
-                        for movie in movies:
-                            print "     " + movie["name"]
-
-                        if self.offset >= limit:
-                            final = True
-                        else:
-                            sleep(time)
-            self.offset += 100
-
-        return resultat
 
 
 if __name__ == "__main__":
