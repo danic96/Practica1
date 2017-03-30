@@ -1,0 +1,27 @@
+{% extends "root.html" %}
+{% block contingut %}
+    <h1>Personatges de {{ username }} </h1>
+    <h2>Numero de personatges = {{ longitud }} </h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>GENERE</th>
+            <th>DESCRIPCIO</th>
+        </tr>
+    {% if personatges %}
+
+        {% for personatge in personatges %}
+        <tr>
+            <td>{{ personatge.id }}</td>
+            <td>{{ personatge.nom }}</td>
+            <td>{{ personatge.genere }}</td>
+            <td>{{ personatge.descripcio }}</td>
+        </tr>
+        {% endfor %}
+
+    {% else %}
+        <h2> No hi ha res per tu, penjat</h2>
+    {% endif %}
+    </table>
+{% endblock %}

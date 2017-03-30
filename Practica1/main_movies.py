@@ -44,7 +44,7 @@ class MoviesClient(object):
 
                 url = base_urls[situation] + self.api_key + self.sufix + \
                      str(self.offset)
-                     
+
             elif situation == "character":
                 url = url + "?api_key=" + self.api_key + "&format=json" + "&field_list=id,name,gender,description"
             else:
@@ -118,17 +118,19 @@ class MoviesClient(object):
                 self.offset += 100
 
         return resultat
-    
+
     def characters(self):
-        lista = Pelicula.objects.values('detail_url')
+        lista = Pelicula.objects.values('detail_url', 'id')
         for elemento in lista:
-            print elemento["detail_url"]
+            print elemento
+            # sleep(60)
+            # print elemento["detail_url"]
             data = self.requestData("movie", elemento["detail_url"])
             jsondata = json.loads(data)
-            
+
             print jsondata["results"]["name"].encode('utf-8')
             # print jsondata["results"]["characters"][0].keys()
-            i=1
+            i = 1
             for character in jsondata["results"]["characters"]:
                 # print "   " + character["name"].encode('utf-8')
                 character_data = self.requestData("character", character["api_detail_url"])
@@ -137,20 +139,22 @@ class MoviesClient(object):
                 result = character_jsondata["results"]
                 if result["description"] is None:
                     character = Personatge(id=result["id"],
-                                            nom=result["name"].encode("utf-8"),
-                                            genere=result["gender"],
-                                            descripcio="null")
+                                           nom=result["name"].encode("utf-8"),
+                                           genere=result["gender"],
+                                           descripcio="null",
+                                           id_pelicula=elemento["id"])
                 else:
                     character = Personatge(id=result["id"],
-                                            nom=result["name"].encode("utf-8"),
-                                            genere=result["gender"],
-                                            descripcio=result["description"].encode("utf-8"))
+                                           nom=result["name"].encode("utf-8"),
+                                           genere=result["gender"],
+                                           descripcio=result["description"].encode("utf-8"),
+                                           id_pelicula=elemento["id"])
                 character.save()
                 print "   " + str(i) + "-ESCRITO"
-                i+=1
-                
+                i += 1
+
 def menu_inicial(api_key):
-    
+
     key_file = open('api_key', 'r')
     api_key = key_file.read().replace('\n', '')
 

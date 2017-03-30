@@ -18,6 +18,7 @@ class Personatge(models.Model):
     nom = models.TextField(max_length=50)
     genere = models.TextField(max_length=50)
     descripcio = models.TextField(max_length=100)
+    id_pelicula = models.PositiveIntegerField(null=False, blank=False)
 
     def __unicode__(self):
         return self.nom
@@ -44,3 +45,7 @@ class Productora(models.Model):
 
     def __unicode__(self):
         return self.nom
+
+class Relacions(models.Model):
+    id_pelicula = models.PositiveIntegerField(null=False, blank=False)
+    id_personatge = models.PositiveIntegerField(null=False, blank=False)
