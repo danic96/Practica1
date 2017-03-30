@@ -7,7 +7,7 @@ import json
 import requests
 from time import sleep
 
-from Aplicacio.models import Pelicula, Personatge
+from Aplicacio.models import Pelicula, Personatge, Relacions
 
 api_key = None
 time = 0
@@ -143,6 +143,7 @@ class MoviesClient(object):
                                            genere=result["gender"],
                                            descripcio="null",
                                            id_pelicula=elemento["id"])
+                                 
                 else:
                     character = Personatge(id=result["id"],
                                            nom=result["name"].encode("utf-8"),
@@ -150,6 +151,9 @@ class MoviesClient(object):
                                            descripcio=result["description"].encode("utf-8"),
                                            id_pelicula=elemento["id"])
                 character.save()
+                relacions = Relacions(id_pelicula=elemento["id"],
+                                      id_personatge=result["id"])
+                relacions.save()
                 print "   " + str(i) + "-ESCRITO"
                 i += 1
 
