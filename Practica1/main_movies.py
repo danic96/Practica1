@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 # vim: set fileencoding=utf8 :
 
-import sys
+import sys, os
 import json
 import requests
 from time import sleep
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Practica1.settings")
+    
+from django.core.management import execute_from_command_line
+
 from Aplicacio.models import Pelicula, Personatge, Relacions
+
 
 api_key = None
 time = 0
@@ -176,6 +181,8 @@ def menu_inicial(api_key):
 
 
 if __name__ == "__main__":
+    
+    
     menu_inicial(api_key)
 
 else:
