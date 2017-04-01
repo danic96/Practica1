@@ -34,9 +34,13 @@ def pelicules(request):
 
 def personatges(request, id_pelicula):
     template = get_template("dashboard_characters.html")
-    print id_pelicula
+    # print id_pelicula
     
     relacions = Relacions.objects.filter(id_pelicula=id_pelicula)
+    
+    title = Pelicula.objects.get(id=id_pelicula)
+    
+    print title
     
     personatges = []
     for relacio in relacions:
@@ -46,14 +50,15 @@ def personatges(request, id_pelicula):
 
     # personatges = Personatge.objects.filter(id_pelicula=id_pelicula)
     longitud = len(personatges)
-    print longitud
-    print personatges
+    # print longitud
+    # print personatges
     
     # sleep(60)
 
     variables = Context({
         "username": "Dani",
         "author": "Luis Barcenas",
+        "title": title,
         "personatges": personatges,
         "longitud": longitud
     })

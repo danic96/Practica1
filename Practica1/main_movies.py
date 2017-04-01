@@ -146,15 +146,13 @@ class MoviesClient(object):
                     character = Personatge(id=result["id"],
                                            nom=result["name"].encode("utf-8"),
                                            genere=result["gender"],
-                                           descripcio="null",
-                                           id_pelicula=elemento["id"])
+                                           descripcio="null")
                                  
                 else:
                     character = Personatge(id=result["id"],
                                            nom=result["name"].encode("utf-8"),
                                            genere=result["gender"],
-                                           descripcio=result["description"].encode("utf-8"),
-                                           id_pelicula=elemento["id"])
+                                           descripcio=result["description"].encode("utf-8"))
                 character.save()
                 relacions = Relacions(id_pelicula=elemento["id"],
                                       id_personatge=result["id"])
