@@ -5,10 +5,11 @@ from django.db import models
 class Movie(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
-    producers = models.TextField(max_length=100)
-    date = models.TextField(max_length=50)
+    deck = models.TextField(max_length=100)
     duration = models.TextField(null=True, blank=True)
+    revenue = models.TextField(null=True, blank=True)
     detail_url = models.TextField(max_length=100)
+
 
     def __unicode__(self):
         return self.nom
@@ -46,6 +47,18 @@ class Power(models.Model):
     def __unicode__(self):
         return self.nom
 
-class Relacions(models.Model):
+class RelationMovieCharacter(models.Model):
     id_movie = models.PositiveIntegerField(null=False, blank=False)
     id_character = models.PositiveIntegerField(null=False, blank=False)
+
+class RelationCharacterTeam(models.Model):
+    id_character = models.PositiveIntegerField(null=False, blank=False)
+    id_team = models.PositiveIntegerField(null=False, blank=False)
+
+class RelationMovieLocation(models.Model):
+    id_movie = models.PositiveIntegerField(null=False, blank=False)
+    id_location = models.PositiveIntegerField(null=False, blank=False)
+
+class RelationCharacterPower(models.Model):
+    id_character = models.PositiveIntegerField(null=False, blank=False)
+    id_power = models.PositiveIntegerField(null=False, blank=False)
