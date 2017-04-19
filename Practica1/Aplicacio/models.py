@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Movie(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
@@ -14,6 +15,7 @@ class Movie(models.Model):
     def __unicode__(self):
         return self.nom
 
+
 class Character(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
@@ -24,12 +26,14 @@ class Character(models.Model):
     def __unicode__(self):
         return self.nom
 
+
 class Location(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
 
     def __unicode__(self):
         return self.nom
+
 
 class Team(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
@@ -40,6 +44,7 @@ class Team(models.Model):
     def __unicode__(self):
         return self.nom
 
+
 class Power(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
@@ -47,17 +52,21 @@ class Power(models.Model):
     def __unicode__(self):
         return self.nom
 
+
 class RelationMovieCharacter(models.Model):
     id_movie = models.PositiveIntegerField(null=False, blank=False)
     id_character = models.PositiveIntegerField(null=False, blank=False)
+
 
 class RelationCharacterTeam(models.Model):
     id_character = models.PositiveIntegerField(null=False, blank=False)
     id_team = models.PositiveIntegerField(null=False, blank=False)
 
+
 class RelationMovieLocation(models.Model):
     id_movie = models.PositiveIntegerField(null=False, blank=False)
     id_location = models.PositiveIntegerField(null=False, blank=False)
+
 
 class RelationCharacterPower(models.Model):
     id_character = models.PositiveIntegerField(null=False, blank=False)
