@@ -6,6 +6,7 @@ from django.db import models
 class Location(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
+    deck = models.TextField(max_length=100)
 
     def __unicode__(self):
         return self.name
@@ -24,6 +25,7 @@ class Team(models.Model):
 class Power(models.Model):
     id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
     name = models.TextField(max_length=50)
+    description = models.TextField(max_length=100)
 
     def __unicode__(self):
         return self.name
@@ -34,7 +36,6 @@ class Character(models.Model):
     name = models.TextField(max_length=50)
     gender = models.TextField(max_length=50)
     description = models.TextField(max_length=100)
-    # id_pelicula = models.PositiveIntegerField(null=False, blank=False)
     teams = models.ManyToManyField(Team)
     powers = models.ManyToManyField(Power)
 
