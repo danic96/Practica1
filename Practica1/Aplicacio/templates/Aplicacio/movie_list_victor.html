@@ -1,0 +1,13 @@
+{% extends "Aplicacio/base_victor.html" %}
+{% block content %}
+<h1>
+    Movies
+</h1>
+<ul>
+    {% for restaurant in latest_restaurant_list %}
+        <li><a href="{% url 'myrestaurants:restaurant_detail' restaurant.id %}">
+            {{ restaurant.name }}</a></li>
+    {% empty %}<li>Sorry, no restaurants registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

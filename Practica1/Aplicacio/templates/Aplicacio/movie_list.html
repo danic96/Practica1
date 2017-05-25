@@ -1,7 +1,7 @@
-{% extends "myrestaurants/base.html" %}
+{% extends "Aplicacio/base_victor.html" %}
 {% block content %}
 <h1>
-    Restaurants
+    Movies
     {% if user.is_authenticated %}(<a href="{% url 'myrestaurants:restaurant_create' %}">add</a>){% endif %}
 </h1>
 <ul>
