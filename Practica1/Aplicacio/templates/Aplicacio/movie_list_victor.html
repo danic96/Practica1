@@ -4,10 +4,10 @@
     Movies
 </h1>
 <ul>
-    {% for restaurant in latest_restaurant_list %}
-        <li><a href="{% url 'myrestaurants:restaurant_detail' restaurant.id %}">
-            {{ restaurant.name }}</a></li>
-    {% empty %}<li>Sorry, no restaurants registered yet.</li>
+    {% for movies in latest_movie_list %}
+        <li>
+            {{ movies.name }}</li>
+    {% empty %}<li>Sorry, no movies registered yet.</li>
     {% endfor %}
 </ul>
 {% endblock %}

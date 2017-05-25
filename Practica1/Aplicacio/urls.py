@@ -8,6 +8,8 @@ from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from models import Movie
 
+from views import MovieCreate
+
 urlpatterns = [
     # List latest 5 restaurants: /Aplicacio/
     url(r'^$',
@@ -17,4 +19,8 @@ urlpatterns = [
             context_object_name='latest_movie_list',
             template_name='Aplicacio/movie_list_victor.html'),
         name='movie_list_victor'),
+        
+     url(r'^movies/create/$',
+        MovieCreate.as_view(),
+        name='movie_create'),
 ]
