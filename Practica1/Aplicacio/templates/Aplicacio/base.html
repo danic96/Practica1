@@ -24,13 +24,13 @@
 <div id="sidebar">
     {% block sidebar %}
         <ul>
-            <h3><li><a href="/Aplicacio/">Home</a></li></h3>
+            <h3><li><a href="{% url 'Aplicacio:index_list' %}">Home</a></li></h3>
             </br>
-            <li>Movies</li>
-            <li>Characters</li>
-            <li>Locations</li>
-            <li>Teams</li>
-            <li>Powers</li>
+            <li><a href="{% url 'Aplicacio:movie_list' %}">Movies</a></li>
+            <li><a href="{% url 'Aplicacio:character_list' %}">Characters</a></li>
+            <li><a href="{% url 'Aplicacio:location_list' %}">Locations</a></li>
+            <li><a href="{% url 'Aplicacio:team_list' %}">Teams</a></li>
+            <li><a href="{% url 'Aplicacio:power_list' %}">Powers</a></li>
 
         </ul>
     {% endblock %}

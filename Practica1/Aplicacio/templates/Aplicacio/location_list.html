@@ -1,0 +1,14 @@
+{% extends "Aplicacio/base.html" %}
+{% block content %}
+<h1>
+    Locations
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:location_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for location in location_list %}
+        <li><a href="{% url 'Aplicacio:location_detail' location.id %}">
+            {{ location.name }}</a></li>
+    {% empty %}<li>Sorry, no locations registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

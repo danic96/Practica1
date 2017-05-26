@@ -19,49 +19,23 @@
     MORE DETAILS: <a href= "{{ movie.detail_url }}"> link </a>
 </p>
 
-<h2>
-    Characters
-</h2>
+<h2>Characters</h2>
 <ul>
     {% for character in movie.characters.all %}
-        <li>
-            {{ character.name }}</li>
+            <li><a href="{% url 'Aplicacio:character_detail' character.id %}">{{ character.name }}</li></a>
     {% empty %}<li>Sorry, no characters for this movie yet.</li>
     {% endfor %}
 </ul>
 
 <h2>Locations</h2>
-{% if movie.moviereview_set.all|length > 0 %}
-<span rel="aggregateRating">
-    <p typeof="AggregateRating">
-        Average rating <span property="ratingValue">{{ movie.averageRating|stringformat:".1f" }}</span>
-        {% with movie.moviereview_set.all|length as reviewCount %}
-        from <span property="reviewCount">{{ reviewCount }}</span> review{{ reviewCount|pluralize }}
-        {% endwith %}
-    </p>
-</span>
-<ul rel="review">
-    {% for review in movie.moviereview_set.all %}
-        <li typeof="Review">
-            <p rel="reviewRating" typeof="Rating">
-                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
-                <span property="ratingValue">{{ review.rating }}</span> star{{ review.rating|pluralize }}
-                {% with RATING_CHOICES|last as best %}
-                <span property="bestRating" content="{{ best.0 }}"></span>
-                {% endwith %}
-            </p>
-            <p property="description">{% if review.comment %}{{ review.comment }}{% endif %}</p>
-            <p>Created by <span property="author">{{ review.user }}</span> on
-                <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span></p>
-        </li>
+<ul>
+    {% for location in movie.locations.all %}
+            <li><a href="{% url 'Aplicacio:location_detail' location.id %}">{{ location.name }}</li></a>
+    {% empty %}<li>Sorry, no locations for this movie yet.</li>
     {% endfor %}
 </ul>
-{% endif %}
 
 </span>
-
-<h3>Add Location</h3>
-
 
 {% endblock %}
 {% block footer %}

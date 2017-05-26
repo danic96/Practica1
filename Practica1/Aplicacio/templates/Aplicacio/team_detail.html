@@ -1,0 +1,27 @@
+{% extends "Aplicacio/base.html" %}
+{% block title %}Aplicacio - {{ team.name }}{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Restaurant">
+
+<h1>
+    <span property="name">{{ team.name }}</span>
+    {% if user == team.user %}
+        (<a href="{% url 'Aplicacio:team_edit' team.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>TEAM DETAILS:</h2>
+<p>
+    NUMBER OF MEMBERS: {{ team.num_members }} <br/>
+    DESCRIPTION: {{ team.description }} <br/>
+</p>
+
+
+</span>
+
+
+{% endblock %}
+{% block footer %}
+    Created by {{ movie.user }} on {{ movie.date }}
+{% endblock %}

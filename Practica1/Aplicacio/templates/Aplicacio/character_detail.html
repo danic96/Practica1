@@ -1,0 +1,49 @@
+{% extends "Aplicacio/base.html" %}
+{% block title %}Aplicacio - {{ character.name }}{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Restaurant">
+
+<h1>
+    <span property="name">{{ character.name }}</span>
+    {% if user == character.user %}
+        (<a href="{% url 'Aplicacio:character_edit' character.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>CHARACTER DETAILS:</h2>
+<p>
+    GENDER: {{ character.gender }} <br/>
+    DESCRIPTION: {{ character.description }} <br/>
+</p>
+
+<h2>
+    Powers
+</h2>
+<ul>
+    {% for power in character.powers.all %}
+        <li>
+            <a href="{% url 'Aplicacio:power_detail' power.id %}">{{ power.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<h2>
+	Teams
+</h2>
+
+<ul>
+    {% for team in character.teams.all %}
+        <li>
+            <a href="{% url 'Aplicacio:team_detail' team.id %}">{{ team.name }}</a></li>
+    {% empty %}<li>Sorry, no teams for this character yet.</li>
+    {% endfor %}
+</ul>
+
+
+</span>
+
+
+{% endblock %}
+{% block footer %}
+    Created by {{ movie.user }} on {{ movie.date }}
+{% endblock %}
