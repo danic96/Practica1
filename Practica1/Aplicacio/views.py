@@ -13,6 +13,7 @@ from django.views.generic import DetailView
 from models import Movie, Character
 from forms import MovieForm, CharacterForm
 
+
 # Security Mixins
 
 class LoginRequiredMixin(object):
@@ -60,3 +61,4 @@ class CharacterCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CharacterCreate, self).form_valid(form)
+        

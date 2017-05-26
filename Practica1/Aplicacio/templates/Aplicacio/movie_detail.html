@@ -21,10 +21,6 @@
 
 <h2>
     Characters
-    {% if user == movie.user %}
-        (<a href="{% url 'Aplicacio:character_create' %}">add</a>)
-    {% endif %}
-    
 </h2>
 <ul>
     {% for character in movie.characters.all %}

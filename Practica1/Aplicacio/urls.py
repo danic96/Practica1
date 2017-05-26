@@ -6,21 +6,33 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.utils import timezone
 
 from django.views.generic import DetailView, ListView, UpdateView
-from models import Movie
+from models import Movie, Character
 
 from views import MovieCreate, CharacterCreate, MovieDetail, LoginRequiredCheckIsOwnerUpdateView
 
+
 from forms import MovieForm
 
+# movies1 = Movie.objects.order_by('-id')[:5] + Character.objects.order_by('-id')[:5]
+data = {'movies': Movie.objects.order_by('-id')[:5], 
+		'characters': Character.objects.order_by('-id')[:5]}
+
 urlpatterns = [
-    # List latest 5 restaurants: /Aplicacio/
+    # List latest 5 of everything: /Aplicacio/
     url(r'^$',
         ListView.as_view(
-            # queryset=Movie.objects.filter(date__lte=timezone.now()).order_by('-date')[:5],
-            queryset=Movie.objects.order_by('-id')[:5],
-            context_object_name='latest_movie_list',
+            queryset=data,
+            context_object_name='latest_all_list',
+            template_name='Aplicacio/index_list.html'),
+        	name='index_list'),
+     
+     # List all movies: /Aplicacio/movies/
+     url(r'^movies/$',
+        ListView.as_view(
+            queryset=Movie.objects.all,
+            context_object_name='movie_list',
             template_name='Aplicacio/movie_list.html'),
-        name='movie_list'),
+        	name='movie_list'),
      
      # Create a movie, /Aplicacio/movies/create/
      url(r'^movies/create/$',
