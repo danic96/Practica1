@@ -1,7 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse
 
 from django.utils.decorators import method_decorator
@@ -10,8 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 
+from rest_framework import generics
+
 from models import Movie, Character
 from forms import MovieForm, CharacterForm
+
+from Practica1.serializers import MovieSerializer
 
 
 # Security Mixins
@@ -27,11 +28,11 @@ class CheckIsOwnerMixin(object):
         if not obj.user == self.request.user:
             raise PermissionDenied
         return obj
-        
+
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
     template_name = 'Aplicacio/form.html'
-        
-        
+
+# HTML Views
 
 class MovieCreate(LoginRequiredMixin, CreateView):
     model = Movie
@@ -41,7 +42,7 @@ class MovieCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(MovieCreate, self).form_valid(form)
-        
+
 class MovieDetail(DetailView):
     model = Movie
     template_name = 'Aplicacio/movie_detail.html'
@@ -52,7 +53,7 @@ class MovieDetail(DetailView):
         context['RATING_CHOICES'] = RestaurantReview.RATING_CHOICES
         return context
     """
-    
+
 class CharacterCreate(LoginRequiredMixin, CreateView):
     model = Character
     template_name = 'Aplicacio/form.html'
@@ -61,4 +62,15 @@ class CharacterCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CharacterCreate, self).form_valid(form)
-        
+
+### RESTful API views ###
+
+class APIMovieList(generics.ListCreateAPIView):
+    model = Movie
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+class APIMovieDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Movie
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
