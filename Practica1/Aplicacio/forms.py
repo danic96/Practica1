@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from models import Movie, Character, Team
+from models import Movie, Character, Team, Power, Location
 
 
 class MovieForm(ModelForm):
@@ -17,4 +17,16 @@ class CharacterForm(ModelForm):
 class TeamForm(ModelForm):
     class Meta:
         model = Team
+        exclude = ('user', 'date', 'id')
+        
+        
+class PowerForm(ModelForm):
+    class Meta:
+        model = Power
+        exclude = ('user', 'date', 'id')
+        
+        
+class LocationForm(ModelForm):
+    class Meta:
+        model = Location
         exclude = ('user', 'date', 'id')

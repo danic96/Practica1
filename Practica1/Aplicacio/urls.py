@@ -8,10 +8,10 @@ from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from models import Movie, Character, Team, Power, Location
 
-from views import MovieCreate, CharacterCreate, TeamCreate, MovieDetail, CharacterDetail, TeamDetail, LoginRequiredCheckIsOwnerUpdateView
+from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
 
-from forms import MovieForm, CharacterForm, TeamForm
+from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
 data = {'movies': Movie.objects.order_by('-id')[:5], 
 		'characters': Character.objects.order_by('-id')[:5],
@@ -51,6 +51,22 @@ urlpatterns = [
             context_object_name='team_list',
             template_name='Aplicacio/team_list.html'),
         	name='team_list'),
+        	
+    # List all powers: /Aplicacio/powers/
+    url(r'^powers/$',
+        ListView.as_view(
+            queryset=Power.objects.all,
+            context_object_name='power_list',
+            template_name='Aplicacio/power_list.html'),
+        	name='power_list'),
+        	
+    # List all locations: /Aplicacio/locations/
+    url(r'^locations/$',
+        ListView.as_view(
+            queryset=Location.objects.all,
+            context_object_name='location_list',
+            template_name='Aplicacio/location_list.html'),
+        	name='location_list'),
      
     # Create a movie, /Aplicacio/movies/create/
     url(r'^movies/create/$',
@@ -67,6 +83,16 @@ urlpatterns = [
         TeamCreate.as_view(),
         name='team_create'),
         
+    # Create a power, ex.: /Aplicacio/powers/create/
+    url(r'^powers/create/$',
+        PowerCreate.as_view(),
+        name='power_create'),
+        
+    # Create a location, ex.: /Aplicacio/locations/create/
+    url(r'^locations/create/$',
+        LocationCreate.as_view(),
+        name='location_create'),
+        
     # Movie details, ex.: /Aplicacio/movies/1/
     url(r'^movies/(?P<pk>\d+)/$',
         MovieDetail.as_view(),
@@ -81,6 +107,16 @@ urlpatterns = [
     url(r'^teams/(?P<pk>\d+)/$',
        	TeamDetail.as_view(),
         name='team_detail'),
+        
+    # Power details, ex.: /Aplicacio/powers/1/
+    url(r'^powers/(?P<pk>\d+)/$',
+       	PowerDetail.as_view(),
+        name='power_detail'),
+        
+    # Locations details, ex.: /Aplicacio/locations/1/
+    url(r'^locations/(?P<pk>\d+)/$',
+       	LocationDetail.as_view(),
+        name='location_detail'),
         
     # Edit movie details, ex.: /Aplicacio/movies/1/edit/
     url(r'^movies/(?P<pk>\d+)/edit/$',
@@ -102,4 +138,18 @@ urlpatterns = [
             model=Team,
             form_class=TeamForm),
         name='team_edit'),
+        
+    # Edit powers details, ex.: /Aplicacio/powers/1/edit/
+    url(r'^powers/(?P<pk>\d+)/edit/$',
+        LoginRequiredCheckIsOwnerUpdateView.as_view(
+            model=Power,
+            form_class=PowerForm),
+        name='power_edit'),
+        
+    # Edit locations details, ex.: /Aplicacio/locations/1/edit/
+    url(r'^locations/(?P<pk>\d+)/edit/$',
+        LoginRequiredCheckIsOwnerUpdateView.as_view(
+            model=Location,
+            form_class=LocationForm),
+        name='location_edit'),
 ]

@@ -15,6 +15,9 @@ class Location(models.Model):
     deck = models.TextField(max_length=100)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
+    
+    def get_absolute_url(self):
+        return reverse('Aplicacio:location_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return self.name
@@ -41,6 +44,9 @@ class Power(models.Model):
     description = models.TextField(max_length=100)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)
+    
+    def get_absolute_url(self):
+        return reverse('Aplicacio:power_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return self.name

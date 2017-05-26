@@ -1,0 +1,14 @@
+{% extends "Aplicacio/base.html" %}
+{% block content %}
+<h1>
+    Powers
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:power_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for power in power_list %}
+        <li><a href="{% url 'Aplicacio:power_detail' power.id %}">
+            {{ power.name }}</a></li>
+    {% empty %}<li>Sorry, no powers registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

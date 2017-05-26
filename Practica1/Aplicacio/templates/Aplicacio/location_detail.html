@@ -1,0 +1,26 @@
+{% extends "Aplicacio/base.html" %}
+{% block title %}Aplicacio - {{ location.name }}{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Restaurant">
+
+<h1>
+    <span property="name">{{ location.name }}</span>
+    {% if user == location.user %}
+        (<a href="{% url 'Aplicacio:location_edit' location.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>LOCATION DETAILS:</h2>
+<p>
+    DECK: {{ location.deck }} <br/>
+</p>
+
+
+</span>
+
+
+{% endblock %}
+{% block footer %}
+    Created by {{ movie.user }} on {{ movie.date }}
+{% endblock %}

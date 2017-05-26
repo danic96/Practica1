@@ -23,8 +23,7 @@
 <ul>
     {% for power in character.powers.all %}
         <li>
-            {{ power.name }}</li>
-    {% empty %}<li>Sorry, no powers for this character yet.</li>
+            <a href="{% url 'Aplicacio:power_detail' power.id %}">{{ power.name }}</a></li>
     {% endfor %}
 </ul>
 

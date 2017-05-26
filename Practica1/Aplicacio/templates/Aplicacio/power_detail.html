@@ -1,0 +1,26 @@
+{% extends "Aplicacio/base.html" %}
+{% block title %}Aplicacio - {{ power.name }}{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Restaurant">
+
+<h1>
+    <span property="name">{{ power.name }}</span>
+    {% if user == power.user %}
+        (<a href="{% url 'Aplicacio:power_edit' power.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>POWER DETAILS:</h2>
+<p>
+    DESCRIPTION: {{ power.description }} <br/>
+</p>
+
+
+</span>
+
+
+{% endblock %}
+{% block footer %}
+    Created by {{ movie.user }} on {{ movie.date }}
+{% endblock %}
