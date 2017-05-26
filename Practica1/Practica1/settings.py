@@ -41,6 +41,13 @@ INSTALLED_APPS = (
     'rest_framework',
 )
 
+REST_FRAMEWORK = {
+	'DEFAULT_PERMISSION_CLASSES': [
+		'rest_frame_work.permissions.IsAminUser',
+	],
+	'PAGE_SIZE': 10
+}
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

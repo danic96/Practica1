@@ -10,7 +10,7 @@ from models import Movie, Character, Team, Power, Location
 
 from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
-from views import deleteLocation
+from views import deleteLocation, APIMovieList, APIMovieDetail, APICharacterList, APICharacterDetail, APITeamList, APITeamDetail, APIPowerList, APIPowerDetail, APILocationList, APILocationDetail
 
 
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
@@ -158,4 +158,52 @@ urlpatterns = [
     url(r'locations/(?P<pk>\d+)/delete/$', 
     	deleteLocation,
     	name='delete_location'),
+    	
+    	
+    #API
+    
+    url(r'^api/movie/$',
+    	APIMovieList.as_view(),
+    	name='movie_list_API'),
+    	
+   	url(r'^api/movie/(?P<pk>\d+)/$',
+    	APIMovieDetail.as_view(),
+    	name='movie_detail_API'),
+    	
+    url(r'^api/character/$',
+    	APICharacterList.as_view(),
+    	name='character_list_API'),
+    	
+   	url(r'^api/character/(?P<pk>\d+)/$',
+    	APICharacterDetail.as_view(),
+    	name='character_detail_API'),
+    
+    url(r'^api/team/$',
+    	APITeamList.as_view(),
+    	name='team_list_API'),
+    	
+   	url(r'^api/team/(?P<pk>\d+)/$',
+    	APITeamDetail.as_view(),
+    	name='team_detail_API'),
+    	
+    url(r'^api/power/$',
+    	APIPowerList.as_view(),
+    	name='power_list_API'),
+    	
+   	url(r'^api/power/(?P<pk>\d+)/$',
+    	APIPowerDetail.as_view(),
+    	name='power_detail_API'),
+    	
+    url(r'^api/location/$',
+    	APILocationList.as_view(),
+    	name='movie_list_API'),
+    	
+   	url(r'^api/location/(?P<pk>\d+)/$',
+    	APILocationDetail.as_view(),
+    	name='movie_detail_API'),
+    	
 ]
+
+# FORMAT SUFFIXES
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['api', 'json', 'xml'])

@@ -15,6 +15,12 @@ from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
 from django.core.urlresolvers import reverse
 
+from rest_framework import generics
+
+from Aplicacio.serializers import MovieSerializer, CharacterSerializer, TeamSerializer, PowerSerializer, LocationSerializer
+
+
+
 
 # Security Mixins
 class LoginRequiredMixin(object):
@@ -120,7 +126,70 @@ class LocationDetail(DetailView):
 def deleteLocation(requests, pk):
 	location = get_object_or_404(Location, pk=pk)
 	location.delete()
+	
 	return HttpResponseRedirect(reverse('Aplicacio:location_list'))
+	
+	
+# API
+
+class APIMovieList(generics.ListCreateAPIView):
+	model = Movie
+	queryset = Movie.objects.all()
+	serializer_class = MovieSerializer
+	
+
+class APIMovieDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Movie
+	queryset = Movie.objects.all()
+	serializer_class = MovieSerializer
+	
+	
+class APICharacterList(generics.ListCreateAPIView):
+	model = Character
+	queryset = Character.objects.all()
+	serializer_class = CharacterSerializer
+	
+
+class APICharacterDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Character
+	queryset = Character.objects.all()
+	serializer_class = CharacterSerializer
+	
+	
+class APITeamList(generics.ListCreateAPIView):
+	model = Team
+	queryset = Team.objects.all()
+	serializer_class = TeamSerializer
+	
+
+class APITeamDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Team
+	queryset = Team.objects.all()
+	serializer_class = TeamSerializer
+	
+	
+class APIPowerList(generics.ListCreateAPIView):
+	model = Power
+	queryset = Power.objects.all()
+	serializer_class = PowerSerializer
+	
+
+class APIPowerDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Power
+	queryset = Power.objects.all()
+	serializer_class = PowerSerializer
+	
+	
+class APILocationList(generics.ListCreateAPIView):
+	model = Location
+	queryset = Location.objects.all()
+	serializer_class = LocationSerializer
+	
+
+class APILocationDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Location
+	queryset = Location.objects.all()
+	serializer_class = LocationSerializer
 
     
 

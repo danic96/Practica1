@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^Aplicacio/', include('Aplicacio.urls', namespace='Aplicacio')),
-    url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
