@@ -1,14 +1,14 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, DeleteView
 
 from models import Movie, Character, Team, Power, Location
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
@@ -81,6 +81,26 @@ class LocationCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(LocationCreate, self).form_valid(form)
+        
+
+"""
+class LocationDelete(LoginRequiredMixin, CreateView):
+    model = Location
+    template_name = 'Aplicacio/form.html'
+    form_class = LocationForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(LocationDelete, self).form_valid(form)
+"""
+        
+"""
+class Delete(DeleteView):
+    model = Location
+    success_url = reverse_lazy('all_locations') # This is where this view will
+                                            # redirect the user
+    template_name = 'Aplicacio/delete_location.html'
+"""
         
         
 class MovieDetail(DetailView):

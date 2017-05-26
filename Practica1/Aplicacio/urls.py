@@ -10,7 +10,6 @@ from models import Movie, Character, Team, Power, Location
 
 from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
-
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
 data = {'movies': Movie.objects.order_by('-id')[:5], 
@@ -152,4 +151,21 @@ urlpatterns = [
             model=Location,
             form_class=LocationForm),
         name='location_edit'),
+        
+    """
+    # Delete locations details, ex.: /Aplicacio/locations/1/delete/
+    url(r'^locations/(?P<pk>\d+)/delete/$',
+        LoginRequiredCheckIsOwnerUpdateView.as_view(
+            model=Location,
+            form_class=LocationForm),
+        name='location_delete'),
+        
+    """
+    
+    """
+    # Delete locations details, ex.: /Aplicacio/locations/1/delete/
+    url(r'^locations/(?P<pk>\d+)/delete/$', 
+    		Delete.as_view(), 
+    		name='delete_location'),
+   	"""
 ]
