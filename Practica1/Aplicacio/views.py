@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 
 from models import Movie
 from forms import MovieForm
@@ -26,6 +27,9 @@ class CheckIsOwnerMixin(object):
             raise PermissionDenied
         return obj
         
+class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
+    template_name = 'Aplicacio/form.html'
+        
         
 
 class MovieCreate(LoginRequiredMixin, CreateView):
@@ -35,4 +39,15 @@ class MovieCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(RestaurantCreate, self).form_valid(form)
+        return super(MovieCreate, self).form_valid(form)
+        
+class MovieDetail(DetailView):
+    model = Movie
+    template_name = 'Aplicacio/movie_detail.html'
+
+    """
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetail, self).get_context_data(**kwargs)
+        context['RATING_CHOICES'] = RestaurantReview.RATING_CHOICES
+        return context
+    """

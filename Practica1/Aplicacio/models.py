@@ -1,4 +1,10 @@
+from __future__ import unicode_literals
+
 from django.db import models
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+
+from datetime import date
 
 # Create your models here.
 
@@ -44,14 +50,19 @@ class Character(models.Model):
 
 
 class Movie(models.Model):
-    id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
-    deck = models.TextField(max_length=100)
+    deck = models.TextField(max_length=100, blank=True)
     duration = models.TextField(null=True, blank=True)
     revenue = models.TextField(null=True, blank=True)
     detail_url = models.TextField(max_length=100)
-    characters = models.ManyToManyField(Character)
-    locations = models.ManyToManyField(Location)
+    characters = models.ManyToManyField(Character, blank=True)
+    locations = models.ManyToManyField(Location, blank=True)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+    
+    def get_absolute_url(self):
+        return reverse('Aplicacio:movie_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return self.name

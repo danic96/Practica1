@@ -1,0 +1,70 @@
+{% extends "Aplicacio/base.html" %}
+{% block title %}Aplicacio - {{ movie.name }}{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Restaurant">
+
+<h1>
+    <span property="name">{{ movie.name }}</span>
+    {% if user == movie.user %}
+        (<a href="{% url 'Aplicacio:movie_edit' movie.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>MOVIE DETAILS:</h2>
+<p>
+    DECK: {{ movie.deck }} <br/>
+    DURATION: {{ movie.duration }} <br/>
+    REVENUE: {{ movie.revenue }} </br>
+    MORE DETAILS: <a href= "{{ movie.detail_url }}"> link </a>
+</p>
+
+<h2>
+    Characters
+    
+</h2>
+<ul>
+    {% for dish in movie.dishes.all %}
+        <li><a href="{% url 'mymovies:dish_detail' movie.id dish.id %}">
+            {{ dish.name }}</a></li>
+    {% empty %}<li>Sorry, no characters for this movie yet.</li>
+    {% endfor %}
+</ul>
+
+<h2>Locations</h2>
+{% if movie.moviereview_set.all|length > 0 %}
+<span rel="aggregateRating">
+    <p typeof="AggregateRating">
+        Average rating <span property="ratingValue">{{ movie.averageRating|stringformat:".1f" }}</span>
+        {% with movie.moviereview_set.all|length as reviewCount %}
+        from <span property="reviewCount">{{ reviewCount }}</span> review{{ reviewCount|pluralize }}
+        {% endwith %}
+    </p>
+</span>
+<ul rel="review">
+    {% for review in movie.moviereview_set.all %}
+        <li typeof="Review">
+            <p rel="reviewRating" typeof="Rating">
+                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
+                <span property="ratingValue">{{ review.rating }}</span> star{{ review.rating|pluralize }}
+                {% with RATING_CHOICES|last as best %}
+                <span property="bestRating" content="{{ best.0 }}"></span>
+                {% endwith %}
+            </p>
+            <p property="description">{% if review.comment %}{{ review.comment }}{% endif %}</p>
+            <p>Created by <span property="author">{{ review.user }}</span> on
+                <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span></p>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+</span>
+
+<h3>Add Location</h3>
+
+
+{% endblock %}
+{% block footer %}
+    Created by {{ movie.user }} on {{ movie.date }}
+{% endblock %}

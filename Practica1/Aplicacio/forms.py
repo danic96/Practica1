@@ -4,4 +4,4 @@ from models import Movie
 class MovieForm(ModelForm):
     class Meta:
         model = Movie
-        exclude = ('user', 'date',)
+        exclude = ('user', 'date', 'id', 'characters', 'locations')
