@@ -25,6 +25,7 @@
     {% for power in character.powers.all %}
         <li>
             <a href="{% url 'Aplicacio:power_detail' power.id %}">{{ power.name }}</a></li>
+    {% empty %}<li>Sorry, no powers for this character yet.</li>
     {% endfor %}
 </ul>
 
@@ -46,5 +47,5 @@
 
 {% endblock %}
 {% block footer %}
-    Created by {{ movie.user }} on {{ movie.date }}
+    Created by {{ character.user }} on {{ character.date }}
 {% endblock %}

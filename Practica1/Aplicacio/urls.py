@@ -163,7 +163,7 @@ urlpatterns = [
     	
    	url(r'characters/(?P<pk>\d+)/delete/$', 
     	deleteCharacter,
-    	name='delete_location'),
+    	name='delete_character'),
     	
    	url(r'teams/(?P<pk>\d+)/delete/$', 
     	deleteTeam,
