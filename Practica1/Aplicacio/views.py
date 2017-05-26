@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -12,6 +12,8 @@ from django.views.generic import DetailView
 
 from models import Movie, Character, Team, Power, Location
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
+
+from django.core.urlresolvers import reverse
 
 
 # Security Mixins
@@ -113,6 +115,12 @@ class PowerDetail(DetailView):
 class LocationDetail(DetailView):
     model = Location
     template_name = 'Aplicacio/location_detail.html'
+    
+    
+def deleteLocation(requests, pk):
+	location = get_object_or_404(Location, pk=pk)
+	location.delete()
+	return HttpResponseRedirect(reverse('Aplicacio:location_list'))
 
     
 

@@ -10,6 +10,8 @@ from models import Movie, Character, Team, Power, Location
 
 from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
+from views import deleteLocation
+
 
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
@@ -152,4 +154,8 @@ urlpatterns = [
             model=Location,
             form_class=LocationForm),
         name='location_edit'),
+        
+    url(r'locations/(?P<pk>\d+)/delete/$', 
+    	deleteLocation,
+    	name='delete_location'),
 ]
