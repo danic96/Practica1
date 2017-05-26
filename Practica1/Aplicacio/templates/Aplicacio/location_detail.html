@@ -8,6 +8,7 @@
     <span property="name">{{ location.name }}</span>
     {% if user == location.user %}
         (<a href="{% url 'Aplicacio:location_edit' location.id %}">edit</a>)
+        (<a href="{% url 'Aplicacio:delete_location' location.id %}">delete</a>)
     {% endif %}
 </h1>
 

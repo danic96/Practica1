@@ -8,6 +8,7 @@
     <span property="name">{{ movie.name }}</span>
     {% if user == movie.user %}
         (<a href="{% url 'Aplicacio:movie_edit' movie.id %}">edit</a>)
+        (<a href="{% url 'Aplicacio:delete_movie' movie.id %}">delete</a>)
     {% endif %}
 </h1>
 

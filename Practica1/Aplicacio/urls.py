@@ -10,7 +10,7 @@ from models import Movie, Character, Team, Power, Location
 
 from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
-from views import deleteLocation, APIMovieList, APIMovieDetail, APICharacterList, APICharacterDetail, APITeamList, APITeamDetail, APIPowerList, APIPowerDetail, APILocationList, APILocationDetail
+from views import deleteMovie, deleteCharacter, deleteTeam, deletePower, deleteLocation, APIMovieList, APIMovieDetail, APICharacterList, APICharacterDetail, APITeamList, APITeamDetail, APIPowerList, APIPowerDetail, APILocationList, APILocationDetail
 
 
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
@@ -154,6 +154,24 @@ urlpatterns = [
             model=Location,
             form_class=LocationForm),
         name='location_edit'),
+        
+    #DELETE
+    
+    url(r'movies/(?P<pk>\d+)/delete/$', 
+    	deleteMovie,
+    	name='delete_movie'),
+    	
+   	url(r'characters/(?P<pk>\d+)/delete/$', 
+    	deleteCharacter,
+    	name='delete_location'),
+    	
+   	url(r'teams/(?P<pk>\d+)/delete/$', 
+    	deleteTeam,
+    	name='delete_team'),
+    	
+   	url(r'powers/(?P<pk>\d+)/delete/$', 
+    	deletePower,
+    	name='delete_power'),
         
     url(r'locations/(?P<pk>\d+)/delete/$', 
     	deleteLocation,

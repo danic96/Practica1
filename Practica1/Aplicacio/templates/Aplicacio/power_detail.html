@@ -8,6 +8,7 @@
     <span property="name">{{ power.name }}</span>
     {% if user == power.user %}
         (<a href="{% url 'Aplicacio:power_edit' power.id %}">edit</a>)
+        (<a href="{% url 'Aplicacio:delete_power' power.id %}">delete</a>)
     {% endif %}
 </h1>
 

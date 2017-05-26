@@ -122,7 +122,32 @@ class LocationDetail(DetailView):
     model = Location
     template_name = 'Aplicacio/location_detail.html'
     
-    
+
+def deleteMovie(requests, pk):
+	movie = get_object_or_404(Movie, pk=pk)
+	movie.delete()
+	
+	return HttpResponseRedirect(reverse('Aplicacio:movie_list'))
+	
+def deleteCharacter(requests, pk):
+	character = get_object_or_404(Character, pk=pk)
+	character.delete()
+	
+	return HttpResponseRedirect(reverse('Aplicacio:character_list'))
+	
+def deleteTeam(requests, pk):
+	team = get_object_or_404(Team, pk=pk)
+	team.delete()
+	
+	return HttpResponseRedirect(reverse('Aplicacio:team_list'))
+	
+def deletePower(requests, pk):
+	power = get_object_or_404(Power, pk=pk)
+	power.delete()
+	
+	return HttpResponseRedirect(reverse('Aplicacio:power_list'))
+	
+	
 def deleteLocation(requests, pk):
 	location = get_object_or_404(Location, pk=pk)
 	location.delete()
