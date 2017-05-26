@@ -8,8 +8,7 @@ from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from models import Movie, Character, Team, Power, Location
 
-from views import MovieCreate, CharacterCreate, MovieDetail, LoginRequiredCheckIsOwnerUpdateView, \
-	APIMovieList, APIMovieDetail
+from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, LocationDetail, PowerDetail, LoginRequiredCheckIsOwnerUpdateView, APIMovieList, APIMovieDetail
 
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
@@ -190,4 +189,4 @@ urlpatterns = [
 
 # Format suffixes
 
-urlpatterns = format_suffix_patterns(urlpatterns, allowed=['api', 'json', 'xml'])
+# urlpatterns = format_suffix_patterns(urlpatterns, allowed=['api', 'json', 'xml'])
