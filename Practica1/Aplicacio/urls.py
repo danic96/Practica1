@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from models import Movie
 
-from views import MovieCreate, MovieDetail, LoginRequiredCheckIsOwnerUpdateView
+from views import MovieCreate, CharacterCreate, MovieDetail, LoginRequiredCheckIsOwnerUpdateView
 
 from forms import MovieForm
 
@@ -38,4 +38,9 @@ urlpatterns = [
             model=Movie,
             form_class=MovieForm),
         name='movie_edit'),
+        
+     # Create a movie character, ex.: /Aplicacio/charcters/create/
+    url(r'^characters/create/$',
+        CharacterCreate.as_view(),
+        name='character_create'),
 ]

@@ -28,8 +28,8 @@
 </h2>
 <ul>
     {% for character in movie.characters.all %}
-        <li>
-            {{ character.name }}</li>
+        <li><a href="{% url 'character:charcter_detail' movie.id charcter.id %}">
+            {{ charcter.name }}</a></li>
     {% empty %}<li>Sorry, no characters for this movie yet.</li>
     {% endfor %}
 </ul>

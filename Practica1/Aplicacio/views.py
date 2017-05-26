@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 
-from models import Movie
-from forms import MovieForm
+from models import Movie, Character
+from forms import MovieForm, CharacterForm
 
 # Security Mixins
 
@@ -51,3 +51,12 @@ class MovieDetail(DetailView):
         context['RATING_CHOICES'] = RestaurantReview.RATING_CHOICES
         return context
     """
+    
+class CharacterCreate(LoginRequiredMixin, CreateView):
+    model = Character
+    template_name = 'Aplicacio/form.html'
+    form_class = CharacterForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CharacterCreate, self).form_valid(form)

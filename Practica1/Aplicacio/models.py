@@ -10,7 +10,7 @@ from datetime import date
 
 
 class Location(models.Model):
-    id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     deck = models.TextField(max_length=100)
 
@@ -19,7 +19,7 @@ class Location(models.Model):
 
 
 class Team(models.Model):
-    id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     num_members = models.PositiveIntegerField(null=True, blank=True)
     description = models.TextField(max_length=100)
@@ -29,7 +29,7 @@ class Team(models.Model):
 
 
 class Power(models.Model):
-    id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     description = models.TextField(max_length=100)
 
@@ -38,12 +38,16 @@ class Power(models.Model):
 
 
 class Character(models.Model):
-    id = models.PositiveIntegerField(null=False, blank=False, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     gender = models.TextField(max_length=50)
     description = models.TextField(max_length=100)
-    teams = models.ManyToManyField(Team)
-    powers = models.ManyToManyField(Power)
+    teams = models.ManyToManyField(Team, blank=True)
+    powers = models.ManyToManyField(Power, blank=True)
+    
+    def get_absolute_url(self):
+        # return reverse('Aplicacio:character_detail', kwargs={'pk': self.pk})
+        return reverse('Aplicacio:movie_list')
 
     def __unicode__(self):
         return self.name
