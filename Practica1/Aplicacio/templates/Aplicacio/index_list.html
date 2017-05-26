@@ -18,13 +18,53 @@
 
 <h1>
     Characters
-    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:movie_create' %}">add</a>){% endif %}
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:character_create' %}">add</a>){% endif %}
 </h1>
 <ul>
     {% for character in latest_all_list.characters %}
         <li>
-            {{ character.name }}</li>
+            <a href="{% url 'Aplicacio:character_detail' character.id %}">
+            {{ character.name }}</a></li>
     {% empty %}<li>Sorry, no characters registered yet.</li>
+    {% endfor %}
+</ul>
+
+<h1>
+    Locations
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:character_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for location in latest_all_list.locations %}
+        <li>
+            <a href="{% url 'Aplicacio:location_detail' location.id %}">
+            {{ location.name }}</a></li>
+    {% empty %}<li>Sorry, no locations registered yet.</li>
+    {% endfor %}
+</ul>
+
+<h1>
+    Teams
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:team_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for team in latest_all_list.teams %}
+        <li>
+            <a href="{% url 'Aplicacio:team_detail' team.id %}">
+            {{ team.name }}</a></li>
+    {% empty %}<li>Sorry, no teams registered yet.</li>
+    {% endfor %}
+</ul>
+
+<h1>
+    Powers
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:character_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for power in latest_all_list.powers %}
+        <li>
+            <a href="{% url 'Aplicacio:power_detail' power.id %}">
+            {{ power.name }}</a></li>
+    {% empty %}<li>Sorry, no powers registered yet.</li>
     {% endfor %}
 </ul>
 {% endblock %}

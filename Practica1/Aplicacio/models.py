@@ -13,6 +13,8 @@ class Location(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     deck = models.TextField(max_length=100)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
 
     def __unicode__(self):
         return self.name
@@ -23,6 +25,11 @@ class Team(models.Model):
     name = models.TextField(max_length=50)
     num_members = models.PositiveIntegerField(null=True, blank=True)
     description = models.TextField(max_length=100)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+    
+    def get_absolute_url(self):
+        return reverse('Aplicacio:team_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return self.name
@@ -32,6 +39,8 @@ class Power(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(max_length=50)
     description = models.TextField(max_length=100)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
 
     def __unicode__(self):
         return self.name
@@ -44,10 +53,11 @@ class Character(models.Model):
     description = models.TextField(max_length=100)
     teams = models.ManyToManyField(Team, blank=True)
     powers = models.ManyToManyField(Power, blank=True)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
     
     def get_absolute_url(self):
-        # return reverse('Aplicacio:character_detail', kwargs={'pk': self.pk})
-        return reverse('Aplicacio:movie_list')
+        return reverse('Aplicacio:character_detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
         return self.name

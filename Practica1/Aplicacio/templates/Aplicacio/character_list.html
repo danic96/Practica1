@@ -1,0 +1,14 @@
+{% extends "Aplicacio/base.html" %}
+{% block content %}
+<h1>
+    Characters
+    	{% if user.is_authenticated %}(<a href="{% url 'Aplicacio:character_create' %}">add</a>){% endif %}
+</h1>
+<ul>
+    {% for character in character_list %}
+        <li><a href="{% url 'Aplicacio:character_detail' character.id %}">
+            {{ character.name }}</a></li>
+    {% empty %}<li>Sorry, no characters registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
