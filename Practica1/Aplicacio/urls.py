@@ -10,12 +10,12 @@ from models import Movie, Character, Team, Power, Location
 
 from views import MovieCreate, CharacterCreate, TeamCreate, LocationCreate, PowerCreate, MovieDetail, CharacterDetail, TeamDetail, PowerDetail, LocationDetail, LoginRequiredCheckIsOwnerUpdateView
 
-from views import deleteMovie, deleteCharacter, deleteTeam, deletePower, deleteLocation, APIMovieList, APIMovieDetail, APICharacterList, APICharacterDetail, APITeamList, APITeamDetail, APIPowerList, APIPowerDetail, APILocationList, APILocationDetail
+from views import deleteMovie, deleteCharacter, deleteTeam, deletePower, deleteLocation, review, APIMovieList, APIMovieDetail, APICharacterList, APICharacterDetail, APITeamList, APITeamDetail, APIPowerList, APIPowerDetail, APILocationList, APILocationDetail
 
 
 from forms import MovieForm, CharacterForm, TeamForm, PowerForm, LocationForm
 
-data = {'movies': Movie.objects.order_by('-id')[:5], 
+data = {'movies': Movie.objects.order_by('-id')[:5],
 		'characters': Character.objects.order_by('-id')[:5],
 		'teams': Team.objects.order_by('-id')[:5],
 		'powers': Power.objects.order_by('-id')[:5],
@@ -29,7 +29,7 @@ urlpatterns = [
             context_object_name='latest_all_list',
             template_name='Aplicacio/index_list.html'),
         	name='index_list'),
-     
+
     # List all movies: /Aplicacio/movies/
     url(r'^movies/$',
         ListView.as_view(
@@ -37,7 +37,7 @@ urlpatterns = [
             context_object_name='movie_list',
             template_name='Aplicacio/movie_list.html'),
         	name='movie_list'),
-        	
+
     # List all characters: /Aplicacio/characters/
     url(r'^characters/$',
         ListView.as_view(
@@ -45,7 +45,7 @@ urlpatterns = [
             context_object_name='character_list',
             template_name='Aplicacio/character_list.html'),
         	name='character_list'),
-        	
+
     # List all teams: /Aplicacio/teams/
     url(r'^teams/$',
         ListView.as_view(
@@ -53,7 +53,7 @@ urlpatterns = [
             context_object_name='team_list',
             template_name='Aplicacio/team_list.html'),
         	name='team_list'),
-        	
+
     # List all powers: /Aplicacio/powers/
     url(r'^powers/$',
         ListView.as_view(
@@ -61,7 +61,7 @@ urlpatterns = [
             context_object_name='power_list',
             template_name='Aplicacio/power_list.html'),
         	name='power_list'),
-        	
+
     # List all locations: /Aplicacio/locations/
     url(r'^locations/$',
         ListView.as_view(
@@ -69,157 +69,162 @@ urlpatterns = [
             context_object_name='location_list',
             template_name='Aplicacio/location_list.html'),
         	name='location_list'),
-     
+
     # Create a movie, /Aplicacio/movies/create/
     url(r'^movies/create/$',
         MovieCreate.as_view(),
         name='movie_create'),
-        
+
     # Create a character, ex.: /Aplicacio/charcters/create/
     url(r'^characters/create/$',
         CharacterCreate.as_view(),
         name='character_create'),
-        
+
     # Create a team, ex.: /Aplicacio/teams/create/
     url(r'^teams/create/$',
         TeamCreate.as_view(),
         name='team_create'),
-        
+
     # Create a power, ex.: /Aplicacio/powers/create/
     url(r'^powers/create/$',
         PowerCreate.as_view(),
         name='power_create'),
-        
+
     # Create a location, ex.: /Aplicacio/locations/create/
     url(r'^locations/create/$',
         LocationCreate.as_view(),
         name='location_create'),
-        
+
     # Movie details, ex.: /Aplicacio/movies/1/
     url(r'^movies/(?P<pk>\d+)/$',
         MovieDetail.as_view(),
         name='movie_detail'),
-        
+
     # Character details, ex.: /Aplicacio/characters/1/
     url(r'^characters/(?P<pk>\d+)/$',
         CharacterDetail.as_view(),
         name='character_detail'),
-        
+
     # Team details, ex.: /Aplicacio/teams/1/
     url(r'^teams/(?P<pk>\d+)/$',
        	TeamDetail.as_view(),
         name='team_detail'),
-        
+
     # Power details, ex.: /Aplicacio/powers/1/
     url(r'^powers/(?P<pk>\d+)/$',
        	PowerDetail.as_view(),
         name='power_detail'),
-        
+
     # Locations details, ex.: /Aplicacio/locations/1/
     url(r'^locations/(?P<pk>\d+)/$',
        	LocationDetail.as_view(),
         name='location_detail'),
-        
+
     # Edit movie details, ex.: /Aplicacio/movies/1/edit/
     url(r'^movies/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=Movie,
             form_class=MovieForm),
         name='movie_edit'),
-        
+
     # Edit character details, ex.: /Aplicacio/characters/1/edit/
     url(r'^characters/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=Character,
             form_class=CharacterForm),
         name='character_edit'),
-        
+
     # Edit teams details, ex.: /Aplicacio/teams/1/edit/
     url(r'^teams/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=Team,
             form_class=TeamForm),
         name='team_edit'),
-        
+
     # Edit powers details, ex.: /Aplicacio/powers/1/edit/
     url(r'^powers/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=Power,
             form_class=PowerForm),
         name='power_edit'),
-        
+
     # Edit locations details, ex.: /Aplicacio/locations/1/edit/
     url(r'^locations/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=Location,
             form_class=LocationForm),
         name='location_edit'),
-        
+
     #DELETE
-    
-    url(r'movies/(?P<pk>\d+)/delete/$', 
+
+    url(r'movies/(?P<pk>\d+)/delete/$',
     	deleteMovie,
     	name='delete_movie'),
-    	
-   	url(r'characters/(?P<pk>\d+)/delete/$', 
+
+   	url(r'characters/(?P<pk>\d+)/delete/$',
     	deleteCharacter,
     	name='delete_character'),
-    	
-   	url(r'teams/(?P<pk>\d+)/delete/$', 
+
+   	url(r'teams/(?P<pk>\d+)/delete/$',
     	deleteTeam,
     	name='delete_team'),
-    	
-   	url(r'powers/(?P<pk>\d+)/delete/$', 
+
+   	url(r'powers/(?P<pk>\d+)/delete/$',
     	deletePower,
     	name='delete_power'),
-        
-    url(r'locations/(?P<pk>\d+)/delete/$', 
+
+    url(r'locations/(?P<pk>\d+)/delete/$',
     	deleteLocation,
     	name='delete_location'),
-    	
-    	
+
+    # Create a movie review, ex.: /Aplicacio/movies/1/reviews/create/
+    url(r'^movies/(?P<pk>\d+)/reviews/create/$',
+        review,
+        name='review_create'),
+
+
     #API
-    
+
     url(r'^api/movie/$',
     	APIMovieList.as_view(),
     	name='movie_list_API'),
-    	
+
    	url(r'^api/movie/(?P<pk>\d+)/$',
     	APIMovieDetail.as_view(),
     	name='movie_detail_API'),
-    	
+
     url(r'^api/character/$',
     	APICharacterList.as_view(),
     	name='character_list_API'),
-    	
+
    	url(r'^api/character/(?P<pk>\d+)/$',
     	APICharacterDetail.as_view(),
     	name='character_detail_API'),
-    
+
     url(r'^api/team/$',
     	APITeamList.as_view(),
     	name='team_list_API'),
-    	
+
    	url(r'^api/team/(?P<pk>\d+)/$',
     	APITeamDetail.as_view(),
     	name='team_detail_API'),
-    	
+
     url(r'^api/power/$',
     	APIPowerList.as_view(),
     	name='power_list_API'),
-    	
+
    	url(r'^api/power/(?P<pk>\d+)/$',
     	APIPowerDetail.as_view(),
     	name='power_detail_API'),
-    	
+
     url(r'^api/location/$',
     	APILocationList.as_view(),
     	name='movie_list_API'),
-    	
+
    	url(r'^api/location/(?P<pk>\d+)/$',
     	APILocationDetail.as_view(),
     	name='movie_detail_API'),
-    	
+
 ]
 
 # FORMAT SUFFIXES
