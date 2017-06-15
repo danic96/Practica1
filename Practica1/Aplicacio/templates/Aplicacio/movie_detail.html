@@ -10,20 +10,22 @@
         (<a href="{% url 'Aplicacio:movie_edit' movie.id %}">edit</a>)
         (<a href="{% url 'Aplicacio:delete_movie' movie.id %}">delete</a>)
     {% endif %}
+
+
 </h1>
 
 <h2>MOVIE DETAILS:</h2>
 <p>
-    DECK: {{ movie.deck }} <br/>
-    DURATION: {{ movie.duration }} <br/>
+    DECK: <span property="description"> {{ movie.deck }} </span><br/>
+    DURATION: <span property="duration"> {{ movie.duration }} </span><br/>
     REVENUE: {{ movie.revenue }} </br>
-    MORE DETAILS: <a href= "{{ movie.detail_url }}"> link </a>
+    MORE DETAILS: <a href= "{{ movie.detail_url }}" property="url"> link </a>
 </p>
 
 <h2>Characters</h2>
 <ul>
     {% for character in movie.characters.all %}
-            <li><a href="{% url 'Aplicacio:character_detail' character.id %}">{{ character.name }}</li></a>
+            <li property="character"><a href="{% url 'Aplicacio:character_detail' character.id %}">{{ character.name }}</li></a>
     {% empty %}<li>Sorry, no characters for this movie yet.</li>
     {% endfor %}
 </ul>
@@ -31,7 +33,7 @@
 <h2>Locations</h2>
 <ul>
     {% for location in movie.locations.all %}
-            <li><a href="{% url 'Aplicacio:location_detail' location.id %}">{{ location.name }}</li></a>
+            <li property="contentLocation"><a href="{% url 'Aplicacio:location_detail' location.id %}">{{ location.name }}</li></a>
     {% empty %}<li>Sorry, no locations for this movie yet.</li>
     {% endfor %}
 </ul>
@@ -82,5 +84,7 @@
 
 {% endblock %}
 {% block footer %}
-    Created by {{ movie.user }} on {{ movie.date }}
+<div>
+  Created by {{ movie.user }} on {{ movie.date }}
+</div>
 {% endblock %}
