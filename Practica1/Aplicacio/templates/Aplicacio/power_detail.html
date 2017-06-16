@@ -2,7 +2,7 @@
 {% block title %}Aplicacio - {{ power.name }}{% endblock %}
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Power">
+<span vocab="http://schema.org/" typeof="Role">
 
 <h1>
     <span property="name">{{ power.name }}</span>
@@ -14,7 +14,7 @@
 
 <h2>POWER DETAILS:</h2>
 <p>
-    DESCRIPTION: {{ power.description }} <br/>
+    DESCRIPTION: <span property="description"> {{ power.description }} </span><br/>
 </p>
 
 

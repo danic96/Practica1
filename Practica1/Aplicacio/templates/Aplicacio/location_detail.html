@@ -2,7 +2,7 @@
 {% block title %}Aplicacio - {{ location.name }}{% endblock %}
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Location">
+<span vocab="http://schema.org/" typeof="Place">
 
 <h1>
     <span property="name">{{ location.name }}</span>
@@ -14,7 +14,7 @@
 
 <h2>LOCATION DETAILS:</h2>
 <p>
-    DECK: {{ location.deck }} <br/>
+    DECK: <span property ="description"> {{ location.deck }} </span><br/>
 </p>
 
 

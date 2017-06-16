@@ -2,7 +2,7 @@
 {% block title %}Aplicacio - {{ team.name }}{% endblock %}
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Team">
+<span vocab="http://schema.org/" typeof="Organization">
 
 <h1>
     <span property="name">{{ team.name }}</span>
@@ -14,8 +14,8 @@
 
 <h2>TEAM DETAILS:</h2>
 <p>
-    NUMBER OF MEMBERS: {{ team.num_members }} <br/>
-    DESCRIPTION: {{ team.description }} <br/>
+    NUMBER OF MEMBERS: <span property="numberOfEmployees"> {{ team.num_members }} </span><br/>
+    DESCRIPTION: <span property="description"> {{ team.description }} </span><br/>
 </p>
 
 
